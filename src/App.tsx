@@ -1,34 +1,72 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {useEffect, useRef, useState} from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const containerRef = useRef<HTMLDivElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
+  const isClicked = useRef<boolean>(false);
+  const coords = useRef<{
+    startX: number,
+    startY: number,
+    lastX: number,
+    lastY: number,
+  }>({
+    startX: 0,
+    startY: 0,
+    lastX: 0,
+    lastY: 0
+  });
+  const [isGrabbing, setIsGrabbing] = useState(false);
+
+  useEffect(() => {
+    if (!boxRef.current || !containerRef.current) return;
+
+    const box = boxRef.current;
+    const container = containerRef.current;
+    const onMouseDown = (e: MouseEvent) => {
+      isClicked.current = true;
+      coords.current.startX = e.clientX;
+      coords.current.startY = e.clientY;
+      setIsGrabbing(true);
+    };
+    const onMouseUp = () => {
+      isClicked.current = false;
+
+      coords.current.lastX = box.offsetLeft;
+      coords.current.lastY = box.offsetTop;
+      setIsGrabbing(false);
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isClicked.current) return;
+
+      const nextX = e.clientX - coords.current.startX + coords.current.lastX;
+      const nextY = e.clientY - coords.current.startY + coords.current.lastY;
+
+      box.style.top = `${nextY}px`;
+      box.style.left = `${nextX}px`;
+    };
+
+    box.addEventListener('mousedown', onMouseDown);
+    box.addEventListener('mouseup', onMouseUp);
+    container.addEventListener('mousemove', onMouseMove);
+    container.addEventListener('mouseleave', onMouseUp);
+
+
+    return () => {
+      box.removeEventListener('mousedown', onMouseDown);
+      box.removeEventListener('mouseup', onMouseUp);
+      container.removeEventListener('mousemove', onMouseMove);
+      container.removeEventListener('mouseleave', onMouseUp);
+    };
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <main>
+      <div ref={containerRef} className="container">
+        <div ref={boxRef} className={`box ${isGrabbing && 'box-active'}`}></div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </main>
   )
 }
 
