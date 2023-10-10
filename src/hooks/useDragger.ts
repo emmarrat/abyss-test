@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 
-const CENTER = 0;
 
 interface DraggerProps {
   id: string;
@@ -23,11 +22,22 @@ const UseDragger = ({ id }: DraggerProps): { moveToCenter: () => void; isGrabbin
 
   const moveToCenter = () => {
     const target = document.getElementById(id);
+
     if (!target) throw new Error(`Element with given id doesn't exist`);
 
-    coords.current.lastX = CENTER;
-    target.style.left = `${CENTER}px`;
+    const container = target.parentElement;
+
+    if (!container) throw new Error(`Target element must have a parent`);
+
+    const containerWidth = container.clientWidth;
+    const targetWidth = target.clientWidth;
+
+    const centerX = (containerWidth - targetWidth) / 2;
+
+    coords.current.lastX = centerX;
+    target.style.left = `${centerX}px`;
   };
+
 
   useEffect(() => {
     const target = document.getElementById(id);

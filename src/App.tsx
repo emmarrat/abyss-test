@@ -1,5 +1,5 @@
 import UseDragger from "./hooks/useDragger.ts";
-import {TREE_DATA} from "./hooks/mock-data.ts";
+import {TREE_DATA} from "./mock-data.ts";
 import Tree from "./components/Tree/Tree.tsx";
 import './App.css'
 import './components/Tree/Tree.css';

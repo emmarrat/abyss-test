@@ -8,8 +8,8 @@ main {
 .container {
   position: relative;
   border: 1px solid black;
-  height: 800px;
-  width: 800px;
+  height: 80vh;
+  width: 80vw;
   overflow: hidden;
 }
 
