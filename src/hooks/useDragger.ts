@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-const CENTER = 371;
+const CENTER = 0;
 
 interface DraggerProps {
   id: string;

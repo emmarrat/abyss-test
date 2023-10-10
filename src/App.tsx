@@ -1,15 +1,19 @@
-import './App.css'
 import UseDragger from "./hooks/useDragger.ts";
-
+import {TREE_DATA} from "./hooks/mock-data.ts";
+import Tree from "./components/Tree/Tree.tsx";
+import './App.css'
+import './components/Tree/Tree.css';
 
 function App() {
-  const { moveToCenter, isGrabbing } = UseDragger({ id: 'pink-box' });
+  const { moveToCenter, isGrabbing } = UseDragger({ id: 'box' });
 
   return (
     <main>
       <button onClick={moveToCenter} >GO TO CENTER</button>
       <div  className="container">
-        <div id="pink-box" className={`box ${isGrabbing && 'box-active'}`}></div>
+        <div id="box" className={`box tree ${isGrabbing && 'box-active'}`}>
+          <Tree data={TREE_DATA} />
+        </div>
       </div>
     </main>
   )
