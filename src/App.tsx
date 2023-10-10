@@ -1,6 +1,9 @@
 import './App.css'
 import {useEffect, useRef, useState} from "react";
 
+
+const CENTER = 371;
+
 function App() {
   const containerRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
@@ -17,6 +20,12 @@ function App() {
     lastY: 0
   });
   const [isGrabbing, setIsGrabbing] = useState(false);
+
+  const moveToCenter = () => {
+    if(!boxRef.current) return;
+    coords.current.lastX = CENTER;
+    boxRef.current.style.left = `${CENTER}px`;
+  };
 
   useEffect(() => {
     if (!boxRef.current || !containerRef.current) return;
@@ -63,6 +72,7 @@ function App() {
 
   return (
     <main>
+      <button onClick={moveToCenter}>GO TO CENTER</button>
       <div ref={containerRef} className="container">
         <div ref={boxRef} className={`box ${isGrabbing && 'box-active'}`}></div>
       </div>
