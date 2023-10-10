@@ -55,8 +55,8 @@
     width: 0; height: 20px;
 }
 .tree li div{
-    border: 1px solid #ccc;
-    padding: 5px 60px;
+    border: 1px dashed #ccc;
+    padding: 15px 40px;
     text-decoration: none;
     color: #666;
     font-family: arial, verdana, tahoma, serif;

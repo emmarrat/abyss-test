@@ -1,0 +1,25 @@
+.button {
+    border: none;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.button p {
+    margin: 0;
+    text-transform: uppercase;
+    transition: color 0.6s ease;
+    color: #4d4c4c;
+}
+
+.button:hover {
+    background: #4d4c4c;
+}
+
+.button:hover p {
+    color: #fff;
+}

@@ -1,25 +1,3 @@
-main {
-  display: grid;
-  place-items: center;
-  height: 100vh;
-  width: 100vw;
-}
-
-.container {
-  position: relative;
-  border: 1px solid black;
-  height: 80vh;
-  width: 80vw;
-  overflow: hidden;
-}
-
-.box  {
-  position: absolute;
-  top: 0;
-  left: 0;
-  cursor: grab;
-}
-
-.box-active {
-  cursor: grabbing;
+body {
+  background-color: #e1e8e9;
 }
