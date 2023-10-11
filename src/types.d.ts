@@ -5,3 +5,8 @@ export interface TreeNode {
   children?: TreeNode[];
   root?:boolean;
 }
+
+export interface Zoom {
+  title: string;
+  value: string;
+}

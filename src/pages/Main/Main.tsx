@@ -1,15 +1,19 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import Button from "../../components/Button/Button.tsx";
 import UseDragger from "../../hooks/useDragger.ts";
 import {TreeNode} from "../../types";
 import Tree from "../../components/Tree/Tree.tsx";
 import './Main.css';
-import {BiMinusCircle, BiPlusCircle} from "react-icons/bi";
+import {BiMinusCircle, BiPlusCircle, BiSolidMap} from "react-icons/bi";
 import {ZOOM_DATA} from "../../constants.ts";
+import useZoom from "../../hooks/useZoom.ts";
+import useRandomId from "../../hooks/useRandomId.ts";
 
 const Main = () => {
-
+  const generateRandomId = useRandomId();
   const { moveToCenter, isGrabbing } = UseDragger({ id: 'box' });
+  const { zoom, onZoomChange, zoomIn, zoomOut, treeStyle } = useZoom();
+
   const [tree, setTree] = useState<TreeNode[]>([
     {
       id: '1',
@@ -19,39 +23,6 @@ const Main = () => {
       root: true
     },
   ]);
-
-  const [zoom, setZoom] = useState(1);
-
-  const onZoomChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedZoom = event.target.value;
-    const zoomInteger = parseFloat(selectedZoom);
-    setZoom(zoomInteger);
-
-  };
-  const updateZoom = (delta: number) => {
-    const total = zoom + delta;
-    const rounded = total.toFixed(1);
-    setZoom(parseFloat(rounded));
-  };
-
-  const zoomIn = () => {
-    if (zoom < 1.5) {
-      updateZoom(0.1);
-    }
-  };
-
-  const zoomOut = () => {
-    if (zoom >= 0.3) {
-      updateZoom(-0.1);
-    }
-  };
-
-
-  const treeStyle = {
-    transform: `scale(${zoom})`,
-    transformOrigin: 'top left',
-  };
-
 
   useEffect(() => {
     const selectedOption = ZOOM_DATA.find(option => parseFloat(option.value) === zoom);
@@ -67,10 +38,6 @@ const Main = () => {
   useEffect(() => {
     moveToCenter();
   },[]) // I do not enter dependency to move the block to center only once on mounting
-
-  const generateRandomId = () => {
-    return Math.random().toString(36).substring(7);
-  };
 
   const addChildren = (id: string) => {
     const addChildrenRecursively = (nodes: TreeNode[]): TreeNode[] => {
@@ -189,7 +156,7 @@ const Main = () => {
   return (
     <main>
       <div className="buttons-container">
-        <Button onClick={moveToCenter} text="center" />
+        <Button onClick={moveToCenter}><BiSolidMap style={{fontSize: '20px'}}/></Button>
         <Button onClick={zoomIn}><BiPlusCircle style={{fontSize: '20px'}}/></Button>
         <select id="zoomSelect" value={zoom.toString()} onChange={onZoomChange}>
           {ZOOM_DATA.map((option) => (

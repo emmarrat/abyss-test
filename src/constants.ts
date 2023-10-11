@@ -1,4 +1,6 @@
-export const ZOOM_DATA = [
+import {Zoom} from "./types";
+
+export const ZOOM_DATA: Zoom[] = [
   {
     title: '30%',
     value: '0.3'
@@ -51,4 +53,4 @@ export const ZOOM_DATA = [
     title: '150%',
     value: '1.5'
   }
-]
+];
