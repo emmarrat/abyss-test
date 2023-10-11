@@ -13,6 +13,7 @@ const Main = () => {
       text: 'Category',
       isSubmitted: true,
       children: [],
+      root: true
     },
   ]);
 
@@ -120,6 +121,24 @@ const Main = () => {
     setTree(startToEditRecursively(tree));
   };
 
+  const deleteNode = (id: string) => {
+    const deleteNodeRecursively = (nodes: TreeNode[]): TreeNode[] => {
+      return nodes.reduce((acc, node) => {
+        if (node.id === id) {
+          return acc;
+        } else {
+          const updatedNode = {
+            ...node,
+            children: node.children ? deleteNodeRecursively(node.children) : undefined,
+          };
+          return [...acc, updatedNode];
+        }
+      }, [] as TreeNode[]);
+    };
+
+    setTree(deleteNodeRecursively(tree));
+  };
+
 
   console.log(tree);
 
@@ -134,6 +153,7 @@ const Main = () => {
             updateNodeText={updateText}
             submitName={submitName}
             startToEdit={startToEdit}
+            deleteNode={deleteNode}
           />
         </div>
       </div>

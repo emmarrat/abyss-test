@@ -131,11 +131,11 @@
 
 .button__edit {
     background: #f39101;
-    right: -3.5rem;
+    right: -5rem;
 }
 
 .button__edit:hover {
-    background: #a26305;
+    background: #f39101;
 }
 
 .tree__input {

@@ -3,4 +3,5 @@ export interface TreeNode {
   text: string;
   isSubmitted: boolean;
   children?: TreeNode[];
+  root?:boolean;
 }

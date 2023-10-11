@@ -10,9 +10,17 @@ interface Props {
   updateNodeText: (id: string, text: string) => void;
   submitName: (id: string) => void;
   startToEdit: (id:string) =>void;
+  deleteNode: (id: string) => void;
 }
 
-const Tree: React.FC<Props> = ({data, addChildren, updateNodeText, submitName, startToEdit}) => {
+const Tree: React.FC<Props> = ({
+                                 data,
+                                 addChildren,
+                                 updateNodeText,
+                                 submitName,
+                                 startToEdit,
+                                 deleteNode
+}) => {
   const handleAddChildren = (id: string) => {
     addChildren(id);
   };
@@ -28,6 +36,9 @@ const Tree: React.FC<Props> = ({data, addChildren, updateNodeText, submitName, s
 
   const handleStartEditing = (id: string) => {
     startToEdit(id)
+  };
+  const handleDeleteNode = (id: string) => {
+    deleteNode(id);
   };
 
   return (
@@ -52,12 +63,6 @@ const Tree: React.FC<Props> = ({data, addChildren, updateNodeText, submitName, s
                 >
                   <BsCheckLg style={{color: '#ffff'}}/>
                 </button>
-                <button
-                  type="button"
-                  className="tree__button button__decline"
-                >
-                  <BsXLg style={{color: '#ffff'}}/>
-                </button>
               </form> :
               <>
                 <span className="element__text">{item.text}</span>
@@ -72,16 +77,32 @@ const Tree: React.FC<Props> = ({data, addChildren, updateNodeText, submitName, s
                   type="button"
                   className="tree__button button__edit"
                   onClick={() => handleStartEditing(item.id)}
+                  style={{ display: item.root === true ? 'none' : '' }}
+
                 >
                   <RxPencil1 style={{color: '#ffff'}}/>
                 </button>
               </>
-            }
 
+            }
+            <button
+              type="button"
+              className="tree__button button__decline"
+              onClick={() => handleDeleteNode(item.id)}
+              style={{ display: item.root === true ? 'none' : '' }}
+            >
+              <BsXLg style={{color: '#ffff'}}/>
+            </button>
           </div>
           {item.children && item.children.length > 0 && (
-            <Tree data={item.children} addChildren={addChildren} updateNodeText={updateNodeText}
-                  submitName={submitName} startToEdit={startToEdit}/>
+            <Tree
+              data={item.children}
+              addChildren={addChildren}
+              updateNodeText={updateNodeText}
+              submitName={submitName}
+              startToEdit={startToEdit}
+              deleteNode={deleteNode}
+            />
           )}
         </li>
       ))}
