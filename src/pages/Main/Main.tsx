@@ -1,4 +1,4 @@
-import  {useState} from 'react';
+import {useEffect, useState} from 'react';
 import Button from "../../components/Button/Button.tsx";
 import UseDragger from "../../hooks/useDragger.ts";
 import {TreeNode} from "../../types";
@@ -11,10 +11,14 @@ const Main = () => {
     {
       id: '1',
       text: 'Category',
-      isSubmitted: false,
+      isSubmitted: true,
       children: [],
     },
   ]);
+
+  useEffect(() => {
+    moveToCenter();
+  },[]) // I do not enter dependency to move the block to center only once on mounting
 
   const generateRandomId = () => {
     return Math.random().toString(36).substring(7);
@@ -50,7 +54,7 @@ const Main = () => {
     setTree(addChildrenRecursively(tree));
   };
 
-  const updateNodeText = (id: string, text: string) => {
+  const updateText = (id: string, text: string) => {
     const updateTextRecursively = (nodes: TreeNode[]): TreeNode[] => {
       return nodes.map((node) => {
         if (node.id === id) {
@@ -101,7 +105,7 @@ const Main = () => {
       <Button onClick={moveToCenter} text="center" />
       <div className="container">
         <div id="box" className={`box tree ${isGrabbing && 'box-active'}`}>
-          <Tree data={tree} addChildren={addChildren} updateNodeText={updateNodeText} submitName={submitName} />
+          <Tree data={tree} addChildren={addChildren} updateNodeText={updateText} submitName={submitName} />
         </div>
       </div>
     </main>

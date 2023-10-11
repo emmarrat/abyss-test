@@ -10,8 +10,7 @@
     float: left; text-align: center;
     list-style-type: none;
     position: relative;
-    padding: 20px 5px 0 5px;
-
+    padding: 20px 54px 0 5px;
     transition: all 0.5s;
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -79,4 +78,59 @@
 .tree li div:hover+ul::before,
 .tree li div:hover+ul ul::before{
     border-color:  #94a0b4;
+}
+
+.element__block {
+    position: relative;
+}
+
+.element__block_input {
+    padding: 0 !important;
+}
+
+.element__text {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.tree__button {
+    border-radius: 50%;
+    border: none;
+    padding: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    top: 29%;
+}
+.button__add {
+    top: 29%;
+    right: -2rem;
+}
+
+.button__add:hover {
+    background-color: #b7b6b6;
+}
+
+.button__submit {
+    background: #048604;
+    right: -2rem;
+}
+.button__submit:hover {
+    background: #0a3f0a
+}
+
+.button__decline {
+    background: #e33a3a;
+    right: -3.5rem;
+}
+.button__decline:hover {
+    background: #721c1c;
+}
+
+.tree__input {
+    border: none;
+    background: transparent;
+    padding: 15px 10px;
 }
