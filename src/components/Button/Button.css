@@ -1,12 +1,13 @@
 .button {
     border: none;
-    padding: 15px 40px;
+    padding: 0 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: #fff;
     cursor: pointer;
     transition: background 0.3s ease, color 0.3s ease;
+    min-height: 38px;
 }
 
 .button p {
