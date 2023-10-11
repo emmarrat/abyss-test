@@ -96,7 +96,7 @@
 .tree__button {
     border-radius: 50%;
     border: none;
-    padding: 3px;
+    padding: 4px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -127,6 +127,15 @@
 }
 .button__decline:hover {
     background: #721c1c;
+}
+
+.button__edit {
+    background: #f39101;
+    right: -3.5rem;
+}
+
+.button__edit:hover {
+    background: #a26305;
 }
 
 .tree__input {

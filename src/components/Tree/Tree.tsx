@@ -2,15 +2,17 @@ import React from 'react';
 import {TreeNode} from '../../types';
 import './Tree.css';
 import {BsCheckLg, BsPlusLg, BsXLg} from "react-icons/bs";
+import {RxPencil1} from "react-icons/rx";
 
 interface Props {
   data: TreeNode[];
   addChildren: (id: string) => void;
   updateNodeText: (id: string, text: string) => void;
   submitName: (id: string) => void;
+  startToEdit: (id:string) =>void;
 }
 
-const Tree: React.FC<Props> = ({data, addChildren, updateNodeText, submitName}) => {
+const Tree: React.FC<Props> = ({data, addChildren, updateNodeText, submitName, startToEdit}) => {
   const handleAddChildren = (id: string) => {
     addChildren(id);
   };
@@ -22,6 +24,10 @@ const Tree: React.FC<Props> = ({data, addChildren, updateNodeText, submitName}) 
   const handleSubmitName = (e: React.FormEvent, id: string) => {
     e.preventDefault();
     submitName(id);
+  };
+
+  const handleStartEditing = (id: string) => {
+    startToEdit(id)
   };
 
   return (
@@ -62,13 +68,20 @@ const Tree: React.FC<Props> = ({data, addChildren, updateNodeText, submitName}) 
                 >
                   <BsPlusLg/>
                 </button>
+                <button
+                  type="button"
+                  className="tree__button button__edit"
+                  onClick={() => handleStartEditing(item.id)}
+                >
+                  <RxPencil1 style={{color: '#ffff'}}/>
+                </button>
               </>
             }
 
           </div>
           {item.children && item.children.length > 0 && (
             <Tree data={item.children} addChildren={addChildren} updateNodeText={updateNodeText}
-                  submitName={submitName}/>
+                  submitName={submitName} startToEdit={startToEdit}/>
           )}
         </li>
       ))}

@@ -98,6 +98,29 @@ const Main = () => {
     setTree(submitNameRecursively(tree));
   };
 
+  const startToEdit = (id: string) => {
+    const startToEditRecursively = (nodes: TreeNode[]): TreeNode[] => {
+      return nodes.map((node) => {
+        if (node.id === id) {
+          return {
+            ...node,
+            isSubmitted: false,
+          };
+        } else if (node.children && node.children.length > 0) {
+          return {
+            ...node,
+            children: startToEditRecursively(node.children),
+          };
+        } else {
+          return node;
+        }
+      });
+    };
+
+    setTree(startToEditRecursively(tree));
+  };
+
+
   console.log(tree);
 
   return (
@@ -105,7 +128,13 @@ const Main = () => {
       <Button onClick={moveToCenter} text="center" />
       <div className="container">
         <div id="box" className={`box tree ${isGrabbing && 'box-active'}`}>
-          <Tree data={tree} addChildren={addChildren} updateNodeText={updateText} submitName={submitName} />
+          <Tree
+            data={tree}
+            addChildren={addChildren}
+            updateNodeText={updateText}
+            submitName={submitName}
+            startToEdit={startToEdit}
+          />
         </div>
       </div>
     </main>
