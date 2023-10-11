@@ -11,7 +11,7 @@ main {
     position: relative;
     border: 1px solid #989898;
     height: 90vh;
-    width: 95vw;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -27,6 +27,7 @@ main {
 }
 
 .buttons-container {
+    margin: 0 auto;
     display: flex;
     gap: 10px;
 }
